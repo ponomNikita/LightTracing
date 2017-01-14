@@ -24,7 +24,8 @@ namespace LightTracing
             Ray ray = new Ray()
             {
                 Direction = new Vector3(),
-                Origin = new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z)
+                Origin = new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z),
+                RayColor = Color.Blue
             };
 
             int index;

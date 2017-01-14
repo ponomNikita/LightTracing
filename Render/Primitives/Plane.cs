@@ -13,6 +13,10 @@ namespace Render.Primitives
         public Vector3 RightTop { get; set; }
         public EPrimitiveType Type { get { return EPrimitiveType.Plane; } }
         public Material Material { get; set; }
+        public bool FindIntersection(ref Ray ray)
+        {
+            return false;
+        }
 
         public Plane(Vector3 leftDown, Vector3 rightTop)
         {

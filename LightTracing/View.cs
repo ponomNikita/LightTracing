@@ -49,7 +49,7 @@ namespace LightTracing
 
         private void ColorImage()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -9,5 +9,9 @@ namespace Render
     public class Constants
     {
         public const int OutOfRangeIndex = -1;
+
+        public const float Eps = 0000000000001f;
+
+        public const int MaxCastDepth = 4;
     }
 }
