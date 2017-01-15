@@ -33,6 +33,13 @@ namespace Render
             _intersectionCount = 0;
         }
 
+        public Ray(Vector3 origin, Vector3 direction)
+        {
+            Origin = origin;
+            Direction = Vector3.Normalize(direction);
+            _intersectionCount = 0;
+        }
+
         public Color Cast(List<IPrimitive> primitives, Camera camera, LightPoint lightSource, out int index)
         {
             _intersectionCount++;
@@ -41,50 +48,65 @@ namespace Render
             if (_intersectionCount > Constants.MaxCastDepth)
                 return RayColor;
 
-            FindIntersection(primitives);
-
-            Ray rayToCamera = new Ray()
+            bool isIntersection = FindIntersection(primitives);
+            if (!isIntersection)
             {
-                Origin = this.IntersectPoint,
-                Direction = camera.Eye - this.IntersectPoint,
-                RayColor = this.RayColor
+                return RayColor;
+            }
+
+            Ray rayToCamera = new Ray(this.IntersectPoint, camera.Eye - this.IntersectPoint)
+            {
+                RayColor = this.RayColor,
             };
 
-            if (IsVisible(rayToCamera, primitives))
+            if (IsVisible(ref rayToCamera, primitives, camera))
             {
-                
+                index = camera.GetHitIndex(rayToCamera.IntersectPoint);
             }
 
             return RayColor;
         }
 
 
-        private void FindIntersection(List<IPrimitive> primitives)
+        private bool FindIntersection(List<IPrimitive> primitives)
         {
             this.ClosestIntersectDistance = float.MaxValue;
             this.LastIntersectDistance = float.MaxValue;
+            bool isIntersection = false;
             foreach (IPrimitive item in primitives)
             {
                 Ray ray = this;
                 if (item.FindIntersection(ref ray))
-                    IntersectPrimative = item;
+                {
+                    if (ray.LastIntersectDistance > Constants.Eps)
+                    {
+                        IntersectPrimative = item;
+                        isIntersection = true;
 
-                this.ClosestIntersectDistance = ray.LastIntersectDistance < this.ClosestIntersectDistance
-                    ? ray.LastIntersectDistance
-                    : this.ClosestIntersectDistance;
+                        this.ClosestIntersectDistance = ray.LastIntersectDistance < this.ClosestIntersectDistance
+                            ? ray.LastIntersectDistance
+                            : this.ClosestIntersectDistance;
+                    }
+                }
             }
 
-            this.IntersectPoint = this.Origin + this.Direction * this.ClosestIntersectDistance;
+            if(isIntersection)
+                this.IntersectPoint = this.Origin + this.Direction * this.ClosestIntersectDistance;
+
+            return isIntersection;
         }
 
-        private bool IsVisible(Ray ray, List<IPrimitive> primitives)
+        private bool IsVisible(ref Ray ray, List<IPrimitive> primitives, Camera camera)
         {
             ray.FindIntersection(primitives);
 
             if (ray.IntersectPrimative != null)
-                return true;
+                return false;
 
-            return false;
+            camera.Screen.FindIntersection(ref ray);
+            ray.IntersectPoint = ray.Origin + ray.Direction * ray.LastIntersectDistance;
+
+            return true;
         }
     }
 }

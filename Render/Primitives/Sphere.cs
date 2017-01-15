@@ -34,7 +34,9 @@ namespace Render.Primitives
             else if (hD1 > Constants.Eps)
                 hitDistance = hD1;
             else
-                hitDistance = 0.0f;
+            {
+                return false;
+            }
 
             ray.LastIntersectDistance = hitDistance;
 

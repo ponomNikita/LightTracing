@@ -10,8 +10,10 @@ namespace Render
     {
         public const int OutOfRangeIndex = -1;
 
-        public const float Eps = 0000000000001f;
+        public const float Eps = 0.000001f;
 
         public const int MaxCastDepth = 4;
+
+        public const int RaysCount = 1000;
     }
 }

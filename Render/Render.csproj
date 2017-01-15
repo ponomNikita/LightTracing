@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Primitives\Triangle.cs" />
     <Compile Include="Ray.cs" />
     <Compile Include="Scene\Camera.cs" />
     <Compile Include="Scene\LightPoint.cs" />
