@@ -56,7 +56,7 @@ namespace Render
 
             Ray rayToCamera = new Ray(this.IntersectPoint, camera.Eye - this.IntersectPoint)
             {
-                RayColor = this.RayColor,
+                RayColor = this.IntersectPrimative.Material.Color,
             };
 
             if (IsVisible(ref rayToCamera, primitives, camera))
@@ -98,11 +98,13 @@ namespace Render
 
         private bool IsVisible(ref Ray ray, List<IPrimitive> primitives, Camera camera)
         {
-            ray.FindIntersection(primitives);
+            Ray checkVisible = new Ray(ray.Origin, ray.Direction);
+            checkVisible.FindIntersection(primitives);
 
-            if (ray.IntersectPrimative != null)
+            if (checkVisible.IntersectPrimative != null)
                 return false;
 
+            
             camera.Screen.FindIntersection(ref ray);
             ray.IntersectPoint = ray.Origin + ray.Direction * ray.LastIntersectDistance;
 

@@ -12,7 +12,6 @@ namespace LightTracing
     public class Camera
     {
         public Vector3 Eye { get; set; }
-        public Vector3 Forvard { get; set; }
         public int ScreenWidth { get; set; }
         public int ScreenHeight { get; set; }
         public Plane Screen { get; set; }
@@ -20,21 +19,23 @@ namespace LightTracing
         private readonly float _imageHeightDivScreenHeight;
         private readonly float _imageWidthDivScreenWidth;
 
-        public Camera(Vector3 eye, Vector3 forvard, int screenWidth, int screenHeight, Plane screen)
+        public Camera(Vector3 eye, int screenWidthInPixel, int screenHeightInPixel, Plane screen)
         {
-            if (eye == null || forvard == null || screen == null)
+            if (eye == null || screen == null)
             {
                 throw new ArgumentException("eye, forvard or screen is null");
             }
 
             Eye = eye;
-            Forvard = forvard;
-            ScreenHeight = screenHeight;
-            ScreenWidth = screenWidth;
+            ScreenHeight = screenHeightInPixel;
+            ScreenWidth = screenWidthInPixel;
             Screen = screen;
 
-            _imageWidthDivScreenWidth = screenWidth / Math.Abs(screen.TriangleB.V0.X - screen.TriangleB.V1.X);
-            _imageHeightDivScreenHeight = screenHeight / Math.Abs(screen.TriangleA.V0.Z - screen.TriangleA.V1.Z);
+            float screenWidth = Math.Abs(screen.TriangleA.V1.X - screen.TriangleA.V2.X);
+            float screenHeight = Math.Abs(screen.TriangleA.V0.Z - screen.TriangleA.V1.Z);
+
+            _imageWidthDivScreenWidth = screenWidthInPixel / screenWidth;
+            _imageHeightDivScreenHeight = screenHeightInPixel / screenHeight;
         }
 
         public int GetHitIndex(Vector3 intersectPoint)

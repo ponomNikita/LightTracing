@@ -20,11 +20,13 @@ namespace Render.Scene
             var leftDown = new Vector3(0, 0, 0);
             var leftTop = new Vector3(0, 0, 10);
             var rightTop = new Vector3(10, 0, 10);
-            var rightDown = new Vector3(0, 0, 10);
+            var rightDown = new Vector3(10, 0, 0);
 
             IPrimitive screen = new Plane(leftDown, leftTop, rightTop, rightDown, screenMaterial);
 
-            Camera camera = new Camera(new Vector3(0, -1, 0.5f), new Vector3(0, 1, -0.5f), imageWidth, imageHeight,
+            var eyePosition = new Vector3(5, -3, 5);
+
+            Camera camera = new Camera(eyePosition, imageWidth, imageHeight,
                 (Plane)screen);
 
             return camera;
@@ -125,7 +127,7 @@ namespace Render.Scene
 
             {
                 Material material = new Material() { Color = Color.Blue };
-                sphere = new Sphere(new Vector3(4, 4, 3), 3, material);
+                sphere = new Sphere(new Vector3(4, 4, 3), 1.5f, material);
             }
 
             #endregion

@@ -14,6 +14,6 @@ namespace Render
 
         public const int MaxCastDepth = 4;
 
-        public const int RaysCount = 1000;
+        public const int RaysCount = 1000000;
     }
 }
