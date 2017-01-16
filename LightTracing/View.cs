@@ -72,7 +72,8 @@ namespace LightTracing
             if (s == null)
                 return;
             
-            progressBar.Value = s.Percent;
+            if (s.Percent <= progressBar.Maximum)
+                progressBar.Value = s.Percent;
         }
     }
 }

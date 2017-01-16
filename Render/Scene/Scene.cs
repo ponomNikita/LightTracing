@@ -56,19 +56,61 @@ namespace LightTracing
 
             #endregion
 
-            int maxIndex = Camera.ScreenHeight*Camera.ScreenWidth;
 
-            int raysInPercent = RaysCount/100;
-            
+
+            DetermineCycle(ref colors, lightSourceColor);
+            //RandomCycle(ref colors, lightSourceColor);
+        }
+
+        private void DetermineCycle(ref Color[] colors, Color lightSourceColor)
+        {
+            int cycleSize = (int)Math.Sqrt(Constants.RaysCount);
+            float step = 10.0f / cycleSize;
+
+            int maxIndex = Camera.ScreenHeight * Camera.ScreenWidth;
+            int raysInPercent = RaysCount / 100;
+
+            int counter = 0;
+
+            for (float i = 0; i < 10.0f; i = i + step)
+            {
+                for (float j = 0; j < 10.0f; j = j + step)
+                {
+                    counter++;
+                    if (counter % raysInPercent == 0)
+                    {
+                        Percent = counter / raysInPercent;
+                        OnPercentChange();
+                    }
+
+                    Vector3 direction = GetDirection(LightSource, i, j);
+                    Ray ray = new Ray(new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z), direction)
+                    {
+                        RayColor = lightSourceColor
+                    };
+
+                    int index;
+                    Color color = ray.Cast(Primitives, Camera, LightSource, out index);
+
+                    if (index != Constants.OutOfRangeIndex && index < maxIndex)
+                        colors[index] = color;
+                }
+            }
+        }
+        private void RandomCycle(ref Color[] colors, Color lightSourceColor)
+        {
+            int maxIndex = Camera.ScreenHeight * Camera.ScreenWidth;
+
+            int raysInPercent = RaysCount / 100;
             for (int i = 0; i < Constants.RaysCount; i++)
             {
-                if (i%raysInPercent == 0)
+                if (i % raysInPercent == 0)
                 {
-                    Percent = i/raysInPercent;
+                    Percent = i / raysInPercent;
                     OnPercentChange();
                 }
 
-                Vector3 direction = GetRandomDirection(1);
+                Vector3 direction = GetRandomDirection(10);
                 Ray ray = new Ray(new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z), direction)
                 {
                     RayColor = lightSourceColor
@@ -82,6 +124,11 @@ namespace LightTracing
             }
         }
 
+        private Vector3 GetDirection(LightPoint lp, float i, float j)
+        {
+            var aim = new Vector3(i, j, 9.5f);
+            return aim - lp.Position;
+        }
         private Vector3 GetRandomDirection(float multiplier)
         {
             var random = new Random();

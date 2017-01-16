@@ -40,10 +40,8 @@ namespace LightTracing
 
         public int GetHitIndex(Vector3 intersectPoint)
         {
-            int index = Constants.OutOfRangeIndex;
-
-            int imageCol = (int)((intersectPoint.X - Screen.TriangleA.V0.X) * _imageWidthDivScreenWidth);
-            int imageRow = (int)((intersectPoint.Z - Screen.TriangleA.V0.Z) * _imageHeightDivScreenHeight);
+            int imageCol = ScreenWidth - (int)((intersectPoint.X - Screen.TriangleA.V0.X) * _imageWidthDivScreenWidth);
+            int imageRow = ScreenHeight - (int)((intersectPoint.Z - Screen.TriangleA.V0.Z) * _imageHeightDivScreenHeight);
 
             imageCol = Math.Max(0, imageCol);
             imageCol = Math.Min(ScreenWidth - 1, imageCol);
@@ -51,7 +49,7 @@ namespace LightTracing
             imageRow = Math.Max(0, imageRow);
             imageRow = Math.Min(ScreenHeight - 1, imageRow);
 
-            index = imageRow * ScreenWidth + imageCol;
+            int index = imageCol * ScreenHeight + imageRow;
 
             return index;
         }
