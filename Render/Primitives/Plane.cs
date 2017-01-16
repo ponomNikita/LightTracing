@@ -29,6 +29,11 @@ namespace Render.Primitives
             return TriangleA.FindIntersection(ref ray) || TriangleB.FindIntersection(ref ray);
         }
 
+        public Vector3 GetNormalAtPoint(Vector3 point)
+        {
+            return TriangleA.GetNormalAtPoint(point);
+        }
+
         public Plane(Triangle triangleA, Triangle triangleB, Material material)
         {
             if (triangleA == null || triangleB == null)

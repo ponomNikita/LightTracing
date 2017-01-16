@@ -26,7 +26,7 @@ namespace Render
 
         public IPrimitive IntersectPrimative { get; set; }
 
-        private int _intersectionCount;
+        public int _intersectionCount;
 
         public Ray()
         {
@@ -54,9 +54,12 @@ namespace Render
                 return RayColor;
             }
 
+            var nextRay = IntersectPrimative.Material.ReflectRay(this,
+                IntersectPrimative.GetNormalAtPoint(IntersectPoint));
+
             Ray rayToCamera = new Ray(this.IntersectPoint, camera.Eye - this.IntersectPoint)
             {
-                RayColor = this.IntersectPrimative.Material.Color,
+                RayColor = nextRay.RayColor,
             };
 
             if (IsVisible(ref rayToCamera, primitives, camera))
@@ -64,6 +67,7 @@ namespace Render
                 index = camera.GetHitIndex(rayToCamera.IntersectPoint);
             }
 
+            //Cast(primitives, camera, lightSource, out index);
             return IntersectPrimative.Material.Color;
         }
 

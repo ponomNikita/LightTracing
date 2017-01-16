@@ -43,6 +43,11 @@ namespace Render.Primitives
             return true;
         }
 
+        public Vector3 GetNormalAtPoint(Vector3 point)
+        {
+            return Vector3.Normalize(point - Center);
+        }
+
         public Sphere(Vector3 center, float radius)
         {
             if (center == null)

@@ -21,7 +21,7 @@ namespace LightTracing
     {
         private readonly Scene _scene;
         private readonly Bitmap _bitmap;
-        private readonly Color _lightSourceColor = Color.White;
+        private readonly Color _lightSourceColor = Color.DeepPink;
         private Color[] _colors;
 
         public IntegerProperty _progressBarValueProperty;

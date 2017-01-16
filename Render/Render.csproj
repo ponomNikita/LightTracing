@@ -45,12 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Materials\MaterialType.cs" />
+    <Compile Include="Materials\SpecularMaterial.cs" />
     <Compile Include="Primitives\Triangle.cs" />
     <Compile Include="Ray.cs" />
     <Compile Include="Scene\Camera.cs" />
     <Compile Include="Scene\DefaultBuilder.cs" />
     <Compile Include="Scene\LightPoint.cs" />
-    <Compile Include="Material.cs" />
+    <Compile Include="Materials\Material.cs" />
     <Compile Include="Primitives\EPrimitiveTypes.cs" />
     <Compile Include="Primitives\IPrimitive.cs" />
     <Compile Include="Primitives\Plane.cs" />

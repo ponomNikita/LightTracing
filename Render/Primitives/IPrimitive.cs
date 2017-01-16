@@ -14,5 +14,7 @@ namespace Render.Primitives
         Material Material { get; set; }
 
         bool FindIntersection(ref Ray ray);
+
+        Vector3 GetNormalAtPoint(Vector3 point);
     }
 }

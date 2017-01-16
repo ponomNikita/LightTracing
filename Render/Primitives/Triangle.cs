@@ -15,11 +15,15 @@ namespace Render.Primitives
         public EPrimitiveType Type { get { return EPrimitiveType.Triangle; } }
         public Material Material { get; set; }
 
+        private Vector3 _normal;
+
         public Triangle(Vector3 v0, Vector3 v1, Vector3 v2, Material material)
         {
             V0 = v0;
             V1 = v1;
             V2 = v2;
+
+            _normal = GetNormal(v0, v1, v2);
 
             Material = material;
         }
@@ -29,6 +33,8 @@ namespace Render.Primitives
             V0 = v0;
             V1 = v1;
             V2 = v2;
+
+            _normal = GetNormal(v0, v1, v2);
         }
         public bool FindIntersection(ref Ray ray)
         {
@@ -76,6 +82,18 @@ namespace Render.Primitives
             ray.LastIntersectDistance = (p - ray.Origin).Length();
 
             return true;
+        }
+
+        public Vector3 GetNormalAtPoint(Vector3 point)
+        {
+            return _normal;
+        }
+
+        private Vector3 GetNormal(Vector3 V0, Vector3 V1, Vector3 V2)
+        {
+            Vector3 u = V1 - V0;
+            Vector3 v = V2 - V0;
+            return Vector3.Cross(u, v);
         }
     }
 }
