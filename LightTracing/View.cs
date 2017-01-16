@@ -5,9 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Render;
 using Render.Primitives;
 using Render.Scene;
@@ -22,6 +24,7 @@ namespace LightTracing
         private readonly Color _lightSourceColor = Color.White;
         private Color[] _colors;
 
+        public IntegerProperty _progressBarValueProperty;
 
         public View()
         {
@@ -31,10 +34,14 @@ namespace LightTracing
 
             _scene = DefaultBuilder.BuildScene(Image.Width, Image.Height);
 
+            progressBar.Maximum = 100;
+
+            _scene.OnRayCastEventHandler += OnRayCast;
         }
 
         private void RenderBtn_Click(object sender, EventArgs e)
         {
+            progressBar.Visible = true;
             _scene.Render(out _colors, _lightSourceColor);
 
             ColorImage();
@@ -54,6 +61,18 @@ namespace LightTracing
             }
 
             Image.Image = _bitmap;
+
+            progressBar.Value = 0;
+            progressBar.Visible = false;
+        }
+
+        private void OnRayCast(object sender, EventArgs eventArgs)
+        {
+            var s = sender as Scene;
+            if (s == null)
+                return;
+            
+            progressBar.Value = s.Percent;
         }
     }
 }

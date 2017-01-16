@@ -30,6 +30,7 @@
         {
             this.RenderBtn = new System.Windows.Forms.Button();
             this.Image = new System.Windows.Forms.PictureBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.Image)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,11 +53,20 @@
             this.Image.TabIndex = 1;
             this.Image.TabStop = false;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 483);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(450, 23);
+            this.progressBar.TabIndex = 2;
+            this.progressBar.Visible = false;
+            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 475);
+            this.ClientSize = new System.Drawing.Size(594, 518);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.Image);
             this.Controls.Add(this.RenderBtn);
             this.Name = "View";
@@ -70,6 +80,7 @@
 
         private System.Windows.Forms.Button RenderBtn;
         private System.Windows.Forms.PictureBox Image;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

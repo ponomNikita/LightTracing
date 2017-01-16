@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
@@ -17,6 +18,25 @@ namespace LightTracing
         public List<IPrimitive> Primitives { get; set; }
         public Camera Camera { get; set; }
         public LightPoint LightSource { get; set; }
+
+        public EventHandler OnRayCastEventHandler;
+
+        public int Percent { get; set; }
+
+        public int RaysCount { get; set; }
+
+        public void OnPercentChange()
+        {
+            var handler = OnRayCastEventHandler;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
+        }
+
+        public Scene()
+        {
+            RaysCount = Constants.RaysCount;
+        }
+
 
         public void Render(out Color[] colors, Color lightSourceColor)
         {
@@ -38,16 +58,21 @@ namespace LightTracing
 
             int maxIndex = Camera.ScreenHeight*Camera.ScreenWidth;
 
+            int raysInPercent = RaysCount/100;
+            
             for (int i = 0; i < Constants.RaysCount; i++)
             {
+                if (i%raysInPercent == 0)
+                {
+                    Percent = i/raysInPercent;
+                    OnPercentChange();
+                }
+
                 Vector3 direction = GetRandomDirection(1);
                 Ray ray = new Ray(new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z), direction)
                 {
                     RayColor = lightSourceColor
                 };
-
-                if (i % 100 == 0)
-                    Console.WriteLine("ray {0}", i);
 
                 int index;
                 Color color = ray.Cast(Primitives, Camera, LightSource, out index);
