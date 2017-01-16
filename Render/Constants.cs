@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Render
 {
-    public class Constants
+    public static class Constants
     {
         public const int OutOfRangeIndex = -1;
 

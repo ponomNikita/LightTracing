@@ -18,7 +18,7 @@ namespace LightTracing
         public Camera Camera { get; set; }
         public LightPoint LightSource { get; set; }
 
-        public void Render(out Color[] colors)
+        public void Render(out Color[] colors, Color lightSourceColor)
         {
             if (Primitives == null || Camera == null || LightSource == null)
             {
@@ -27,11 +27,13 @@ namespace LightTracing
 
 
             #region Color init
+
             colors = new Color[Camera.ScreenHeight * Camera.ScreenWidth];
             for (int i = 0; i < Camera.ScreenWidth * Camera.ScreenHeight; i++)
             {
                 colors[i] = Color.Black;
             }
+
             #endregion
 
             int maxIndex = Camera.ScreenHeight*Camera.ScreenWidth;
@@ -41,7 +43,7 @@ namespace LightTracing
                 Vector3 direction = GetRandomDirection(1);
                 Ray ray = new Ray(new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z), direction)
                 {
-                    RayColor = Color.White
+                    RayColor = lightSourceColor
                 };
 
                 if (i % 100 == 0)

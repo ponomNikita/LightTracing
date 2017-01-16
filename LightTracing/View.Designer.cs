@@ -35,9 +35,9 @@
             // 
             // RenderBtn
             // 
-            this.RenderBtn.Location = new System.Drawing.Point(549, 288);
+            this.RenderBtn.Location = new System.Drawing.Point(468, 12);
             this.RenderBtn.Name = "RenderBtn";
-            this.RenderBtn.Size = new System.Drawing.Size(75, 23);
+            this.RenderBtn.Size = new System.Drawing.Size(116, 23);
             this.RenderBtn.TabIndex = 0;
             this.RenderBtn.Text = "Build scene";
             this.RenderBtn.UseVisualStyleBackColor = true;
@@ -48,7 +48,7 @@
             this.Image.BackColor = System.Drawing.SystemColors.HighlightText;
             this.Image.Location = new System.Drawing.Point(12, 12);
             this.Image.Name = "Image";
-            this.Image.Size = new System.Drawing.Size(531, 299);
+            this.Image.Size = new System.Drawing.Size(450, 450);
             this.Image.TabIndex = 1;
             this.Image.TabStop = false;
             // 
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 323);
+            this.ClientSize = new System.Drawing.Size(594, 475);
             this.Controls.Add(this.Image);
             this.Controls.Add(this.RenderBtn);
             this.Name = "View";

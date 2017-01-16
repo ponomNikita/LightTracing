@@ -23,6 +23,13 @@ namespace Render.Primitives
 
             Material = material;
         }
+
+        public Triangle(Vector3 v0, Vector3 v1, Vector3 v2)
+        {
+            V0 = v0;
+            V1 = v1;
+            V2 = v2;
+        }
         public bool FindIntersection(ref Ray ray)
         {
             Vector3 u, v, n;

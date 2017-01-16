@@ -52,5 +52,16 @@ namespace Render.Primitives
             Center = center;
             Radius = radius;
         }
+
+        public Sphere(Vector3 center, float radius, Material material)
+        {
+            if (center == null)
+            {
+                throw new ArgumentException("center is null");
+            }
+            Center = center;
+            Radius = radius;
+            Material = material;
+        }
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Primitives\Triangle.cs" />
     <Compile Include="Ray.cs" />
     <Compile Include="Scene\Camera.cs" />
+    <Compile Include="Scene\DefaultBuilder.cs" />
     <Compile Include="Scene\LightPoint.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Primitives\EPrimitiveTypes.cs" />

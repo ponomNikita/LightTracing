@@ -10,7 +10,16 @@ namespace Render.Primitives
     public class Plane : IPrimitive
     {
         public EPrimitiveType Type { get { return EPrimitiveType.Plane; } }
-        public Material Material { get; set; }
+
+        public Material Material
+        {
+            get { return TriangleA.Material; }
+            set
+            {
+                TriangleA.Material = value;
+                TriangleB.Material = value;
+            }
+        }
 
         public Triangle TriangleA { get; set; }
         public Triangle TriangleB { get; set; }
@@ -31,6 +40,12 @@ namespace Render.Primitives
 
             TriangleA = triangleA;
             TriangleB = triangleB;
+        }
+
+        public Plane(Vector3 leftDown, Vector3 leftTop, Vector3 rightTop, Vector3 rightDown, Material material)
+        {
+            TriangleA = new Triangle(leftDown, leftTop, rightTop, material);
+            TriangleB = new Triangle(leftDown, rightTop, rightDown, material);
         }
     }
 }

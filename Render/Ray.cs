@@ -64,7 +64,7 @@ namespace Render
                 index = camera.GetHitIndex(rayToCamera.IntersectPoint);
             }
 
-            return RayColor;
+            return IntersectPrimative.Material.Color;
         }
 
 

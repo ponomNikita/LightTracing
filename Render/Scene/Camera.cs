@@ -17,8 +17,8 @@ namespace LightTracing
         public int ScreenHeight { get; set; }
         public Plane Screen { get; set; }
 
-        private float ImageHeightDivScreenHeight;
-        private float ImageWidthDivScreenWidth;
+        private readonly float _imageHeightDivScreenHeight;
+        private readonly float _imageWidthDivScreenWidth;
 
         public Camera(Vector3 eye, Vector3 forvard, int screenWidth, int screenHeight, Plane screen)
         {
@@ -33,16 +33,16 @@ namespace LightTracing
             ScreenWidth = screenWidth;
             Screen = screen;
 
-            ImageWidthDivScreenWidth = screenWidth / Math.Abs(screen.TriangleB.V0.X - screen.TriangleB.V1.X);
-            ImageHeightDivScreenHeight = screenHeight / Math.Abs(screen.TriangleA.V0.Z - screen.TriangleA.V1.Z);
+            _imageWidthDivScreenWidth = screenWidth / Math.Abs(screen.TriangleB.V0.X - screen.TriangleB.V1.X);
+            _imageHeightDivScreenHeight = screenHeight / Math.Abs(screen.TriangleA.V0.Z - screen.TriangleA.V1.Z);
         }
 
         public int GetHitIndex(Vector3 intersectPoint)
         {
             int index = Constants.OutOfRangeIndex;
 
-            int imageCol = (int) ((intersectPoint.X - Screen.TriangleB.V0.X)*ImageWidthDivScreenWidth);
-            int imageRow = (int) ((intersectPoint.Z - Screen.TriangleA.V0.Z)*ImageHeightDivScreenHeight);
+            int imageCol = (int)((intersectPoint.X - Screen.TriangleA.V0.X) * _imageWidthDivScreenWidth);
+            int imageRow = (int)((intersectPoint.Z - Screen.TriangleA.V0.Z) * _imageHeightDivScreenHeight);
 
             imageCol = Math.Max(0, imageCol);
             imageCol = Math.Min(ScreenWidth - 1, imageCol);
@@ -50,7 +50,7 @@ namespace LightTracing
             imageRow = Math.Max(0, imageRow);
             imageRow = Math.Min(ScreenHeight - 1, imageRow);
 
-            index = imageRow*ScreenHeight + imageCol;
+            index = imageRow * ScreenWidth + imageCol;
 
             return index;
         }
