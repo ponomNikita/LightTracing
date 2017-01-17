@@ -39,15 +39,15 @@ namespace Render
 
         public virtual Color CulcColorByPhong(Camera camera, LightPoint lightpoint, Vector3 normal, Vector3 intersectionPoint, Color rayColor)
         {
-            Color currColor;
-            if (Type != MaterialType.Mirror)
-            {
-                currColor = Color;
-            }
-            else
-            {
-                currColor = rayColor;
-            }
+            Color currColor = Color;
+            //if (Type != MaterialType.Mirror)
+            //{
+            //    currColor = Color;
+            //}
+            //else
+            //{
+            //    currColor = rayColor;
+            //}
 
             Vector3 light = Vector3.Normalize(lightpoint.Position - intersectionPoint);
             Vector3 view = Vector3.Normalize(camera.Eye - intersectionPoint);
@@ -55,11 +55,11 @@ namespace Render
 
             float diffuse = Math.Max(0, Vector3.Dot(light, normal));
             float specular = (float)Math.Pow(Math.Max(0, Vector3.Dot(reflected, light)), _p);
-            float resultKoof = (_kA + _kD*diffuse);
+            float resultKoof = (_kA + _kD * diffuse) + _kS * specular;
 
-            float R = currColor.R * resultKoof + _kS * specular;
-            float G = currColor.G * resultKoof + _kS * specular;
-            float B = currColor.B * resultKoof + _kS * specular;
+            float R = currColor.R * resultKoof;
+            float G = currColor.G * resultKoof;
+            float B = currColor.B * resultKoof;
 
             Color resultColor = Color.FromArgb(
                 Math.Max(0, Math.Min(255, (int)R)),

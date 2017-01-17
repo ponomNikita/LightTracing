@@ -81,7 +81,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 0, 10);
                 var rightDown = new Vector3(10, 0, 0);
 
-                Material material = new MirrorMaterial(Color.Red);
+                Material material = new SpecularMaterial(Color.Red);
                 rightWall = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -95,7 +95,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 10, 10);
                 var rightDown = new Vector3(10, 10, 0);
 
-                Material material = new SpecularMaterial(Color.GreenYellow);
+                Material material = new DiffuseMaterial(Color.GreenYellow);
                 backWall = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -109,7 +109,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 0, 10);
                 var rightDown = new Vector3(10, 10, 10);
 
-                Material material = new SpecularMaterial(Color.BlueViolet);
+                Material material = new DiffuseMaterial(Color.BlueViolet);
                 ceiling = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -128,7 +128,7 @@ namespace Render.Scene
 
             {
                 Material material = new SpecularMaterial(Color.Blue);
-                sphere = new Sphere(new Vector3(4, 4, 3), 1.5f, material);
+                sphere = new Sphere(new Vector3(5, 7, 3), 1.5f, material);
             }
 
             #endregion
