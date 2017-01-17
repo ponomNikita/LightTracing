@@ -67,7 +67,6 @@ namespace LightTracing
             int cycleSize = (int)Math.Sqrt(Constants.RaysCount);
             float step = 10.0f / cycleSize;
 
-            int maxIndex = Camera.ScreenHeight * Camera.ScreenWidth;
             int raysInPercent = RaysCount / 100;
 
             int counter = 0;
@@ -89,18 +88,12 @@ namespace LightTracing
                         RayColor = lightSourceColor
                     };
 
-                    int index;
-                    Color color = ray.Cast(Primitives, Camera, LightSource, out index);
-
-                    if (index != Constants.OutOfRangeIndex && index < maxIndex)
-                        colors[index] = color;
+                    ray.Cast(Primitives, Camera, LightSource, ref colors, 0);
                 }
             }
         }
         private void RandomCycle(ref Color[] colors, Color lightSourceColor)
         {
-            int maxIndex = Camera.ScreenHeight * Camera.ScreenWidth;
-
             int raysInPercent = RaysCount / 100;
             for (int i = 0; i < Constants.RaysCount; i++)
             {
@@ -116,11 +109,7 @@ namespace LightTracing
                     RayColor = lightSourceColor
                 };
 
-                int index;
-                Color color = ray.Cast(Primitives, Camera, LightSource, out index);
-
-                if (index != Constants.OutOfRangeIndex && index < maxIndex)
-                    colors[index] = color;
+                ray.Cast(Primitives, Camera, LightSource, ref colors, 0);
             }
         }
 

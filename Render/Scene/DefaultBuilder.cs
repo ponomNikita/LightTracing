@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using LightTracing;
+using Render.Materials;
 using Render.Primitives;
 using Plane = Render.Primitives.Plane;
 
@@ -15,7 +16,7 @@ namespace Render.Scene
     {
         private static Camera BuildDefaultCamera(int imageWidth, int imageHeight)
         {
-            Material screenMaterial = new Material();
+            Material screenMaterial = new DiffuseMaterial(new Color());
             
             var leftDown = new Vector3(0, 0, 0);
             var leftTop = new Vector3(0, 0, 10);
@@ -24,7 +25,7 @@ namespace Render.Scene
 
             IPrimitive screen = new Plane(leftDown, leftTop, rightTop, rightDown, screenMaterial);
 
-            var eyePosition = new Vector3(5, -3, 5);
+            var eyePosition = new Vector3(5, -15, 5);
 
             Camera camera = new Camera(eyePosition, imageWidth, imageHeight,
                 (Plane)screen);
@@ -52,7 +53,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 10, 0);
                 var rightDown = new Vector3(10, 0, 0);
 
-                Material material = new Material() {Color = Color.Aqua};
+                Material material = new DiffuseMaterial(Color.Aqua);
                 floor = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -66,7 +67,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(0, 10, 10);
                 var rightDown = new Vector3(0, 10, 0);
 
-                Material material = new Material() { Color = Color.Red };
+                Material material = new SpecularMaterial(Color.Red);
                 leftWall = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -80,7 +81,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 0, 10);
                 var rightDown = new Vector3(10, 0, 0);
 
-                Material material = new Material() { Color = Color.Red };
+                Material material = new MirrorMaterial(Color.Red);
                 rightWall = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -94,7 +95,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 10, 10);
                 var rightDown = new Vector3(10, 10, 0);
 
-                Material material = new Material() { Color = Color.GreenYellow };
+                Material material = new SpecularMaterial(Color.GreenYellow);
                 backWall = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -108,7 +109,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 0, 10);
                 var rightDown = new Vector3(10, 10, 10);
 
-                Material material = new Material() { Color = Color.BlueViolet };
+                Material material = new SpecularMaterial(Color.BlueViolet);
                 ceiling = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -118,7 +119,7 @@ namespace Render.Scene
 
             lightSource = new LightPoint()
             {
-                Position = new Vector3(5, 5, 10)
+                Position = new Vector3(5, 2, 10)
             };
 
             #endregion
@@ -126,7 +127,7 @@ namespace Render.Scene
             #region Build sphere
 
             {
-                Material material = new Material() { Color = Color.Blue };
+                Material material = new SpecularMaterial(Color.Blue);
                 sphere = new Sphere(new Vector3(4, 4, 3), 1.5f, material);
             }
 

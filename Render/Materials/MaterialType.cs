@@ -9,6 +9,7 @@ namespace Render
     public enum MaterialType
     {
         Deffuse = 1,
-        Specular = 2
+        Specular = 2,
+        Mirror = 3
     }
 }

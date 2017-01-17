@@ -26,49 +26,52 @@ namespace Render
 
         public IPrimitive IntersectPrimative { get; set; }
 
-        public int _intersectionCount;
-
         public Ray()
         {
-            _intersectionCount = 0;
         }
 
         public Ray(Vector3 origin, Vector3 direction)
         {
             Origin = origin;
             Direction = Vector3.Normalize(direction);
-            _intersectionCount = 0;
         }
 
-        public Color Cast(List<IPrimitive> primitives, Camera camera, LightPoint lightSource, out int index)
+        public void Cast(List<IPrimitive> primitives, Camera camera, LightPoint lightSource, ref Color[] colors, int rayNumber)
         {
-            _intersectionCount++;
-            index = Constants.OutOfRangeIndex;
-
-            if (_intersectionCount > Constants.MaxCastDepth)
-                return RayColor;
+            if (rayNumber > Constants.MaxCastDepth)
+            {
+                return;
+            }
 
             bool isIntersection = FindIntersection(primitives);
-            if (!isIntersection)
+            if (isIntersection)
             {
-                return RayColor;
-            }
+                var normalAtPoint = IntersectPrimative.GetNormalAtPoint(IntersectPoint);
 
-            var nextRay = IntersectPrimative.Material.ReflectRay(this,
-                IntersectPrimative.GetNormalAtPoint(IntersectPoint));
+                var resultColor = IntersectPrimative.Material.CulcColorByPhong(camera, lightSource, normalAtPoint,
+                    IntersectPoint, RayColor);
 
-            Ray rayToCamera = new Ray(this.IntersectPoint, camera.Eye - this.IntersectPoint)
-            {
-                RayColor = nextRay.RayColor,
-            };
+                Ray rayToCamera = new Ray(this.IntersectPoint, camera.Eye - this.IntersectPoint)
+                {
+                    RayColor = resultColor,
+                };
 
-            if (IsVisible(ref rayToCamera, primitives, camera))
-            {
-                index = camera.GetHitIndex(rayToCamera.IntersectPoint);
-            }
+                if (IsVisible(ref rayToCamera, primitives, camera))
+                {
+                    int index = camera.GetHitIndex(rayToCamera.IntersectPoint);
 
-            //Cast(primitives, camera, lightSource, out index);
-            return IntersectPrimative.Material.Color;
+                    if (index != Constants.OutOfRangeIndex && index < colors.Length)
+                        colors[index] = resultColor;
+                }
+
+                var nextRay = new Ray(IntersectPoint,
+                    Vector3.Reflect(this.Direction, normalAtPoint))
+                {
+                    RayColor = resultColor
+                };
+
+                nextRay.Cast(primitives, camera, lightSource, ref colors, rayNumber + 1);
+                }  
         }
 
 

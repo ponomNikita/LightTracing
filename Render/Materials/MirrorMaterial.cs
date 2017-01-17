@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Render
+namespace Render.Materials
 {
-    public class SpecularMaterial : Material
+    public class MirrorMaterial : Material
     {
         public override MaterialType Type
         {
-            get { return MaterialType.Specular; }
+            get { return MaterialType.Mirror; }
         }
 
-        public SpecularMaterial(Color color, float kA, float kD, float kS, float p) 
+        public MirrorMaterial(Color color, float kA, float kD, float kS, float p)
             : base(color, kA, kD, kS, p)
         {
         }
 
-        public SpecularMaterial(Color color) 
+        public MirrorMaterial(Color color)
             : base(color)
         {
             _kA = 0.4f;
             _kD = 0.9f;
             _kS = 0.8f;
-            _p = 2.0f;
+            _p = 3.0f;
 
             _reflectionCoef = 0.5f;
             _refractionCoef = 1.0f;

@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Render
+namespace Render.Materials
 {
-    public class SpecularMaterial : Material
+    public class DiffuseMaterial : Material
     {
         public override MaterialType Type
         {
-            get { return MaterialType.Specular; }
+            get { return MaterialType.Deffuse; }
         }
-
-        public SpecularMaterial(Color color, float kA, float kD, float kS, float p) 
+        public DiffuseMaterial(Color color, float kA, float kD, float kS, float p)
             : base(color, kA, kD, kS, p)
         {
         }
 
-        public SpecularMaterial(Color color) 
+        public DiffuseMaterial(Color color)
             : base(color)
         {
             _kA = 0.4f;
