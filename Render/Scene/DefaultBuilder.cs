@@ -67,7 +67,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(0, 10, 10);
                 var rightDown = new Vector3(0, 10, 0);
 
-                Material material = new SpecularMaterial(Color.Red);
+                Material material = new MirrorMaterial(Color.Red);
                 leftWall = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 

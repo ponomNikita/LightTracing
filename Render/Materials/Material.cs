@@ -39,15 +39,15 @@ namespace Render
 
         public virtual Color CulcColorByPhong(Camera camera, LightPoint lightpoint, Vector3 normal, Vector3 intersectionPoint, Color rayColor)
         {
-            Color currColor = Color;
-            //if (Type != MaterialType.Mirror)
-            //{
-            //    currColor = Color;
-            //}
-            //else
-            //{
-            //    currColor = rayColor;
-            //}
+            Color currColor;
+            if (Type != MaterialType.Mirror)
+            {
+                currColor = Color;
+            }
+            else
+            {
+                currColor = rayColor;
+            }
 
             Vector3 light = Vector3.Normalize(lightpoint.Position - intersectionPoint);
             Vector3 view = Vector3.Normalize(camera.Eye - intersectionPoint);
