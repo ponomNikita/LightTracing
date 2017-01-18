@@ -95,5 +95,13 @@ namespace Render.Primitives
             Vector3 v = V2 - V0;
             return Vector3.Cross(u, v);
         }
+
+        public bool HasPoint(Vector3 point)
+        {
+            var normal = Vector3.Cross(V0 - V1, V2 - V1);
+            var scalarMult = Vector3.Dot(normal, point - V1);
+            var result = Math.Abs(scalarMult) < 0.00001;
+            return result;
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace Render.Primitives
         Sphere = 2,
         Triangle = 3,
         Ceiling = 4,
+        Tetrahedron = 5,
     }
 }

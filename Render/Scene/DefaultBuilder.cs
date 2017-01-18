@@ -43,6 +43,7 @@ namespace Render.Scene
             IPrimitive ceiling;
             LightSquare lightSource;
             IPrimitive sphere;
+            IPrimitive tetrahedron;
             LightTracing.Scene scene;
 
             #region Build floor
@@ -206,6 +207,20 @@ namespace Render.Scene
 
             #endregion
 
+            #region Built tetrahedron
+
+            {
+
+                Material material = new SpecularMaterial(Color.Yellow);
+                tetrahedron = new Tetrahedron(
+                    new Vector3(6, 6, 0),
+                    new Vector3(8, 6, 0), 
+                    new Vector3(7, 4.5f, 0),
+                    new Vector3(7, 5.25f, 1.5f), material);
+            }
+
+            #endregion
+
             scene= new LightTracing.Scene()
             {
                 Camera = camera,
@@ -217,7 +232,8 @@ namespace Render.Scene
                     backWall,
                     rightWall,
                     ceiling,
-                    sphere
+                    sphere,
+                    tetrahedron
                 }
             };
 
