@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Render;
 using Render.Primitives;
+using Render.Scene;
 using Plane = Render.Primitives.Plane;
 
 
@@ -17,7 +18,7 @@ namespace LightTracing
     {
         public List<IPrimitive> Primitives { get; set; }
         public Camera Camera { get; set; }
-        public LightPoint LightSource { get; set; }
+        public LightSquare LightSource { get; set; }
 
         public EventHandler OnRayCastEventHandler;
 
@@ -64,55 +65,40 @@ namespace LightTracing
 
         private void DetermineCycle(ref Color[] colors, Color lightSourceColor)
         {
-            int cycleSize = (int)Math.Sqrt(Constants.RaysCount);
+            int cycleSize = (int)Math.Sqrt(Constants.RaysCount) / LightSource.Lights.Count;
             float step = 4.0f / cycleSize;
 
             int raysInPercent = RaysCount / 100;
 
             int counter = 0;
 
-            for (float i = 3; i < 7.0f; i = i + step)
+            foreach (LightPoint light in LightSource.Lights)
             {
-                for (float j = 3; j < 7.0f; j = j + step)
+                for (float i = 3; i < 7.0f; i = i + step)
                 {
-                    counter++;
-                    if (counter % raysInPercent == 0)
+                    for (float j = 3; j < 7.0f; j = j + step)
                     {
-                        Percent = counter / raysInPercent;
-                        OnPercentChange();
+                        counter++;
+                        if (counter%raysInPercent == 0)
+                        {
+                            Percent = counter/raysInPercent;
+                            OnPercentChange();
+                        }
+
+                        Vector3 direction = GetDirection(light, i, j);
+                        Ray ray =
+                            new Ray(
+                                new Vector3(light.Position.X, light.Position.Y, light.Position.Z),
+                                direction)
+                            {
+                                RayColor = lightSourceColor
+                            };
+
+                        ray.Cast(Primitives, Camera, light, ref colors, 0);
                     }
-
-                    Vector3 direction = GetDirection(LightSource, i, j);
-                    Ray ray = new Ray(new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z), direction)
-                    {
-                        RayColor = lightSourceColor
-                    };
-
-                    ray.Cast(Primitives, Camera, LightSource, ref colors, 0);
                 }
             }
         }
-        private void RandomCycle(ref Color[] colors, Color lightSourceColor)
-        {
-            int raysInPercent = RaysCount / 100;
-            for (int i = 0; i < Constants.RaysCount; i++)
-            {
-                if (i % raysInPercent == 0)
-                {
-                    Percent = i / raysInPercent;
-                    OnPercentChange();
-                }
-
-                Vector3 direction = GetRandomDirection(10);
-                Ray ray = new Ray(new Vector3(LightSource.Position.X, LightSource.Position.Y, LightSource.Position.Z), direction)
-                {
-                    RayColor = lightSourceColor
-                };
-
-                ray.Cast(Primitives, Camera, LightSource, ref colors, 0);
-            }
-        }
-
         private Vector3 GetDirection(LightPoint lp, float i, float j)
         {
             var aim = new Vector3(i, j, Constants.RoomHeight - 0.1f);

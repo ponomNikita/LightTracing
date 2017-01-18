@@ -17,5 +17,7 @@ namespace Render
         public const int RaysCount = 1000000;
 
         public const float RoomHeight = 5.0f;
+
+        public const int LightCount = 3;
     }
 }

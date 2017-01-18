@@ -41,7 +41,7 @@ namespace Render.Scene
             IPrimitive rightWall;
             IPrimitive backWall;
             IPrimitive ceiling;
-            LightPoint lightSource;
+            LightSquare lightSource;
             IPrimitive sphere;
             LightTracing.Scene scene;
 
@@ -161,10 +161,39 @@ namespace Render.Scene
 
             #region Build light source
 
-            lightSource = new LightPoint()
             {
-                Position = new Vector3(5, 5, Constants.RoomHeight + 2)
-            };
+                List<LightPoint> lights = new List<LightPoint>();
+
+                //Random random = new Random(DateTime.Now.Millisecond);
+
+                //for (int i = 0; i < Constants.LightCount; i++)
+                //{
+                //    LightPoint light = new LightPoint()
+                //    {
+                //        Position = new Vector3(random.Next(3, 7), random.Next(3, 7), Constants.RoomHeight + 2)
+                //    };
+
+                //    lights.Add(light);
+                //}
+
+                LightPoint light = new LightPoint()
+                {
+                    Position = new Vector3(7, 5, Constants.RoomHeight + 1)
+                };
+
+                LightPoint light2 = new LightPoint()
+                {
+                    Position = new Vector3(3, 4, Constants.RoomHeight + 1)
+                };
+
+                lights.Add(light);
+                lights.Add(light2);
+
+                lightSource = new LightSquare()
+                {
+                    Lights = lights
+                };
+            }
 
             #endregion
 
