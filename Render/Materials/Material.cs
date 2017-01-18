@@ -11,7 +11,7 @@ namespace Render
 {
     public class Material
     {
-        public Color Color { get; set; }
+        public virtual Color Color { get; set; }
 
         public float _kA;      // коэффициент фонового освещения
         public float _kD;      // коэффициент диффузного освещения
@@ -42,7 +42,7 @@ namespace Render
             Color currColor;
             if (Type != MaterialType.Mirror)
             {
-                currColor = Color;
+                currColor = GetColorAtPoint(intersectionPoint);
             }
             else
             {
@@ -68,6 +68,11 @@ namespace Render
                 );
 
             return resultColor;
+        }
+
+        public virtual Color GetColorAtPoint(Vector3 point)
+        {
+            return Color;
         }
     }
 }

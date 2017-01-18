@@ -19,5 +19,9 @@ namespace Render
         public const float RoomHeight = 5.0f;
 
         public const int LightCount = 3;
+
+        public const float FloorCellCount = 5;
+
+        public const float RoomSize = 10.0f;
     }
 }

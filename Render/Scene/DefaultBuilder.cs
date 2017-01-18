@@ -53,7 +53,7 @@ namespace Render.Scene
                 var rightTop = new Vector3(10, 10, 0);
                 var rightDown = new Vector3(10, 0, 0);
 
-                Material material = new DiffuseMaterial(Color.Aqua);
+                Material material = new FloorMaterial(Color.Aqua);
                 floor = new Plane(leftDown, leftTop, rightTop, rightDown, material);
             }
 
@@ -164,8 +164,7 @@ namespace Render.Scene
             {
                 List<LightPoint> lights = new List<LightPoint>();
 
-                //Random random = new Random(DateTime.Now.Millisecond);
-
+                /*//Random random = new Random(DateTime.Now.Millisecond);
                 //for (int i = 0; i < Constants.LightCount; i++)
                 //{
                 //    LightPoint light = new LightPoint()
@@ -175,15 +174,16 @@ namespace Render.Scene
 
                 //    lights.Add(light);
                 //}
+                */
 
                 LightPoint light = new LightPoint()
                 {
-                    Position = new Vector3(7, 5, Constants.RoomHeight + 1)
+                    Position = new Vector3(7, 5, Constants.RoomHeight + 0.5f)
                 };
 
                 LightPoint light2 = new LightPoint()
                 {
-                    Position = new Vector3(3, 4, Constants.RoomHeight + 1)
+                    Position = new Vector3(3, 4, Constants.RoomHeight + 0.5f)
                 };
 
                 lights.Add(light);

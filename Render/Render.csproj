@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Materials\DiffuseMaterial.cs" />
+    <Compile Include="Materials\FloorMaterial.cs" />
     <Compile Include="Materials\MaterialType.cs" />
     <Compile Include="Materials\MirrorMaterial.cs" />
     <Compile Include="Materials\SpecularMaterial.cs" />
