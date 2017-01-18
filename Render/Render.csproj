@@ -49,6 +49,7 @@
     <Compile Include="Materials\MaterialType.cs" />
     <Compile Include="Materials\MirrorMaterial.cs" />
     <Compile Include="Materials\SpecularMaterial.cs" />
+    <Compile Include="Primitives\Ceiling.cs" />
     <Compile Include="Primitives\Triangle.cs" />
     <Compile Include="Ray.cs" />
     <Compile Include="Scene\Camera.cs" />

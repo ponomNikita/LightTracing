@@ -11,5 +11,6 @@ namespace Render.Primitives
         Plane = 1,
         Sphere = 2,
         Triangle = 3,
+        Ceiling = 4,
     }
 }

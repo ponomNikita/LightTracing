@@ -104,13 +104,57 @@ namespace Render.Scene
             #region Build ceiling
 
             {
-                var leftDown = new Vector3(0, 10, Constants.RoomHeight);
-                var leftTop = new Vector3(0, 0, Constants.RoomHeight);
-                var rightTop = new Vector3(10, 0, Constants.RoomHeight);
-                var rightDown = new Vector3(10, 10, Constants.RoomHeight);
-
+                Plane Plane1;
+                Plane Plane2;
+                Plane Plane3;
+                Plane Plane4;
                 Material material = new DiffuseMaterial(Color.BlueViolet);
-                ceiling = new Plane(leftDown, leftTop, rightTop, rightDown, material);
+
+                {
+                    var leftDown = new Vector3(0, 0, Constants.RoomHeight);
+                    var leftTop = new Vector3(0, 10, Constants.RoomHeight);
+                    var rightTop = new Vector3(3, 10, Constants.RoomHeight);
+                    var rightDown = new Vector3(3, 0, Constants.RoomHeight);
+
+                    Plane1 = new Plane(leftDown, leftTop, rightTop, rightDown, material);
+                }
+
+                {
+                    var leftDown = new Vector3(3, 7, Constants.RoomHeight);
+                    var leftTop = new Vector3(3, 10, Constants.RoomHeight);
+                    var rightTop = new Vector3(7, 10, Constants.RoomHeight);
+                    var rightDown = new Vector3(7, 7, Constants.RoomHeight);
+
+                    Plane2 = new Plane(leftDown, leftTop, rightTop, rightDown, material);
+                }
+
+                {
+                    var leftDown = new Vector3(7, 0, Constants.RoomHeight);
+                    var leftTop = new Vector3(7, 10, Constants.RoomHeight);
+                    var rightTop = new Vector3(10, 10, Constants.RoomHeight);
+                    var rightDown = new Vector3(10, 0, Constants.RoomHeight);
+
+                    Plane3 = new Plane(leftDown, leftTop, rightTop, rightDown, material);
+                }
+
+                {
+                    var leftDown = new Vector3(3, 0, Constants.RoomHeight);
+                    var leftTop = new Vector3(3, 3, Constants.RoomHeight);
+                    var rightTop = new Vector3(7, 3, Constants.RoomHeight);
+                    var rightDown = new Vector3(7, 0, Constants.RoomHeight);
+
+                    Plane4 = new Plane(leftDown, leftTop, rightTop, rightDown, material);
+                }
+
+                ceiling = new Ceiling(material)
+                {
+                    Plane1 = Plane1,
+                    Plane2 = Plane2,
+                    Plane3 = Plane3,
+                    Plane4 = Plane4
+                };
+
+
             }
 
             #endregion
@@ -119,7 +163,7 @@ namespace Render.Scene
 
             lightSource = new LightPoint()
             {
-                Position = new Vector3(5, 2, Constants.RoomHeight)
+                Position = new Vector3(5, 5, Constants.RoomHeight + 2)
             };
 
             #endregion
