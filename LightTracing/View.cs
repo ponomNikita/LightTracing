@@ -42,6 +42,7 @@ namespace LightTracing
         private void RenderBtn_Click(object sender, EventArgs e)
         {
             progressBar.Visible = true;
+            saveBtn.Visible = false;
             _scene.Render(out _colors, _lightSourceColor);
 
             ColorImage();
@@ -64,6 +65,7 @@ namespace LightTracing
 
             progressBar.Value = 0;
             progressBar.Visible = false;
+            saveBtn.Visible = true;
         }
 
         private void OnRayCast(object sender, EventArgs eventArgs)
@@ -74,6 +76,11 @@ namespace LightTracing
             
             if (s.Percent <= progressBar.Maximum)
                 progressBar.Value = s.Percent;
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            _bitmap.Save(string.Format("Output/{0}_{1}.jpeg", Constants.RaysCount, Guid.NewGuid()));
         }
     }
 }

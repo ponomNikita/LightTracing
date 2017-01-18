@@ -14,7 +14,7 @@ namespace Render
 
         public const int MaxCastDepth = 4;
 
-        public const int RaysCount = 10000000;
+        public const int RaysCount = 100000;
 
         public const float RoomHeight = 5.0f;
     }
