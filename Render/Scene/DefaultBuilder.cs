@@ -202,7 +202,7 @@ namespace Render.Scene
 
             {
                 Material material = new SpecularMaterial(Color.Blue);
-                sphere = new Sphere(new Vector3(3, 6, 2), 1.0f, material);
+                sphere = new Sphere(new Vector3(3, 8, 2), 1.0f, material);
             }
 
             #endregion

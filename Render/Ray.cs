@@ -48,7 +48,7 @@ namespace Render
             {
                 var normalAtPoint = IntersectPrimative.GetNormalAtPoint(IntersectPoint);
 
-                var resultColor = IntersectPrimative.Material.CulcColorByPhong(camera, lightSource, normalAtPoint,
+                Color resultColor = IntersectPrimative.Material.CulcColorByPhong(camera, lightSource, normalAtPoint,
                     IntersectPoint, RayColor);
 
                 Ray rayToCamera = new Ray(this.IntersectPoint, camera.Eye - this.IntersectPoint)
@@ -61,11 +61,13 @@ namespace Render
                     int index = camera.GetHitIndex(rayToCamera.IntersectPoint);
 
                     if (index != Constants.OutOfRangeIndex && index < colors.Length)
+                    {
                         colors[index] = resultColor;
+                    }
                 }
 
                 var nextRay = new Ray(IntersectPoint,
-                    Vector3.Reflect(this.Direction, normalAtPoint))
+                    IntersectPrimative.Material.GetReflectDirection(Direction, normalAtPoint))
                 {
                     RayColor = resultColor
                 };

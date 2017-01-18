@@ -74,5 +74,10 @@ namespace Render
         {
             return Color;
         }
+
+        public virtual Vector3 GetReflectDirection(Vector3 oldDirection, Vector3 normalAtPoint)
+        {
+            return Vector3.Reflect(oldDirection, normalAtPoint);
+        }
     }
 }

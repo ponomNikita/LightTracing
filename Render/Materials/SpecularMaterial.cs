@@ -23,7 +23,7 @@ namespace Render
         public SpecularMaterial(Color color) 
             : base(color)
         {
-            _kA = 0.4f;
+            _kA = 0.6f;
             _kD = 0.9f;
             _kS = 0.4f;
             _p = 6.0f;

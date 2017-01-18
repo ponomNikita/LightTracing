@@ -12,7 +12,7 @@ namespace Render
 
         public const float Eps = 0.000001f;
 
-        public const int MaxCastDepth = 4;
+        public const int MaxCastDepth = 5;
 
         public const int RaysCount = 1000000;
 
