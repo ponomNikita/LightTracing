@@ -65,15 +65,15 @@ namespace LightTracing
         private void DetermineCycle(ref Color[] colors, Color lightSourceColor)
         {
             int cycleSize = (int)Math.Sqrt(Constants.RaysCount);
-            float step = 10.0f / cycleSize;
+            float step = Constants.RoomHeight / cycleSize;
 
             int raysInPercent = RaysCount / 100;
 
             int counter = 0;
 
-            for (float i = 0; i < 10.0f; i = i + step)
+            for (float i = 0; i < Constants.RoomHeight; i = i + step)
             {
-                for (float j = 0; j < 10.0f; j = j + step)
+                for (float j = 0; j < Constants.RoomHeight; j = j + step)
                 {
                     counter++;
                     if (counter % raysInPercent == 0)
@@ -115,7 +115,7 @@ namespace LightTracing
 
         private Vector3 GetDirection(LightPoint lp, float i, float j)
         {
-            var aim = new Vector3(i, j, 9.5f);
+            var aim = new Vector3(i, j, Constants.RoomHeight - 0.1f);
             return aim - lp.Position;
         }
         private Vector3 GetRandomDirection(float multiplier)

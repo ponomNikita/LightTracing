@@ -19,13 +19,13 @@ namespace Render.Scene
             Material screenMaterial = new DiffuseMaterial(new Color());
             
             var leftDown = new Vector3(0, 0, 0);
-            var leftTop = new Vector3(0, 0, 10);
-            var rightTop = new Vector3(10, 0, 10);
+            var leftTop = new Vector3(0, 0, Constants.RoomHeight);
+            var rightTop = new Vector3(10, 0, Constants.RoomHeight);
             var rightDown = new Vector3(10, 0, 0);
 
             IPrimitive screen = new Plane(leftDown, leftTop, rightTop, rightDown, screenMaterial);
 
-            var eyePosition = new Vector3(5, -15, 5);
+            var eyePosition = new Vector3(5, -15, Constants.RoomHeight / 2);
 
             Camera camera = new Camera(eyePosition, imageWidth, imageHeight,
                 (Plane)screen);
@@ -63,8 +63,8 @@ namespace Render.Scene
 
             {
                 var leftDown = new Vector3(0, 0, 0);
-                var leftTop = new Vector3(0, 0, 10);
-                var rightTop = new Vector3(0, 10, 10);
+                var leftTop = new Vector3(0, 0, Constants.RoomHeight);
+                var rightTop = new Vector3(0, 10, Constants.RoomHeight);
                 var rightDown = new Vector3(0, 10, 0);
 
                 Material material = new MirrorMaterial(Color.Red);
@@ -77,8 +77,8 @@ namespace Render.Scene
 
             {
                 var leftDown = new Vector3(10, 10, 0);
-                var leftTop = new Vector3(10, 10, 10);
-                var rightTop = new Vector3(10, 0, 10);
+                var leftTop = new Vector3(10, 10, Constants.RoomHeight);
+                var rightTop = new Vector3(10, 0, Constants.RoomHeight);
                 var rightDown = new Vector3(10, 0, 0);
 
                 Material material = new SpecularMaterial(Color.Red);
@@ -91,8 +91,8 @@ namespace Render.Scene
 
             {
                 var leftDown = new Vector3(0, 10, 0);
-                var leftTop = new Vector3(0, 10, 10);
-                var rightTop = new Vector3(10, 10, 10);
+                var leftTop = new Vector3(0, 10, Constants.RoomHeight);
+                var rightTop = new Vector3(10, 10, Constants.RoomHeight);
                 var rightDown = new Vector3(10, 10, 0);
 
                 Material material = new DiffuseMaterial(Color.GreenYellow);
@@ -104,10 +104,10 @@ namespace Render.Scene
             #region Build ceiling
 
             {
-                var leftDown = new Vector3(0, 10, 10);
-                var leftTop = new Vector3(0, 0, 10);
-                var rightTop = new Vector3(10, 0, 10);
-                var rightDown = new Vector3(10, 10, 10);
+                var leftDown = new Vector3(0, 10, Constants.RoomHeight);
+                var leftTop = new Vector3(0, 0, Constants.RoomHeight);
+                var rightTop = new Vector3(10, 0, Constants.RoomHeight);
+                var rightDown = new Vector3(10, 10, Constants.RoomHeight);
 
                 Material material = new DiffuseMaterial(Color.BlueViolet);
                 ceiling = new Plane(leftDown, leftTop, rightTop, rightDown, material);
@@ -119,7 +119,7 @@ namespace Render.Scene
 
             lightSource = new LightPoint()
             {
-                Position = new Vector3(5, 2, 10)
+                Position = new Vector3(5, 2, Constants.RoomHeight)
             };
 
             #endregion
