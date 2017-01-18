@@ -65,15 +65,15 @@ namespace LightTracing
         private void DetermineCycle(ref Color[] colors, Color lightSourceColor)
         {
             int cycleSize = (int)Math.Sqrt(Constants.RaysCount);
-            float step = Constants.RoomHeight / cycleSize;
+            float step = 10.0f / cycleSize;
 
             int raysInPercent = RaysCount / 100;
 
             int counter = 0;
 
-            for (float i = 0; i < Constants.RoomHeight; i = i + step)
+            for (float i = 0; i < 10.0f; i = i + step)
             {
-                for (float j = 0; j < Constants.RoomHeight; j = j + step)
+                for (float j = 0; j < 10.0f; j = j + step)
                 {
                     counter++;
                     if (counter % raysInPercent == 0)
