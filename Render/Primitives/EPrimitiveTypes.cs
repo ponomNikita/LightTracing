@@ -9,6 +9,9 @@ namespace Render.Primitives
     public enum EPrimitiveType
     {
         Plane = 1,
-        Sphere = 1,
+        Sphere = 2,
+        Triangle = 3,
+        Ceiling = 4,
+        Tetrahedron = 5,
     }
 }

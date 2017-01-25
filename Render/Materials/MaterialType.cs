@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Render
 {
-    public class Material
+    public enum MaterialType
     {
+        Deffuse = 1,
+        Specular = 2,
+        Mirror = 3
     }
 }

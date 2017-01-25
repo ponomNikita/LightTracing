@@ -5,51 +5,82 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using Render;
 using Render.Primitives;
+using Render.Scene;
 using Plane = Render.Primitives.Plane;
 
 namespace LightTracing
 {
     public partial class View : Form
     {
-        private readonly Scene Scene;
-        private Color[] colors;
+        private readonly Scene _scene;
+        private readonly Bitmap _bitmap;
+        private readonly Color _lightSourceColor = Color.AliceBlue;
+        private Color[] _colors;
+
+        public IntegerProperty _progressBarValueProperty;
+
         public View()
         {
             InitializeComponent();
 
-            List<IPrimitive> primitives = new List<IPrimitive>()
-            {
-                new Plane(new Vector3(-2, 1, 0), new Vector3(2, 4, 0)),
-                new Sphere(new Vector3(0, 2, 0), 1)
-            };
+            _bitmap = new Bitmap(Image.Width, Image.Height);
 
-            Scene = new Scene()
-            {
-                Primitives = primitives,
+            _scene = DefaultBuilder.BuildScene(Image.Width, Image.Height);
 
-                Camera = new Camera(new Vector3(0, 0, 1), new Vector3(0, 1, -0.5f), Image.Width, Image.Height),
+            progressBar.Maximum = 100;
 
-                LightSource = new LightPoint()
-                {
-                    Position = new Vector3(1, 1, 5)
-                }
-            };
+            _scene.OnRayCastEventHandler += OnRayCast;
         }
 
         private void RenderBtn_Click(object sender, EventArgs e)
         {
-            Scene.Render(out colors);
+            progressBar.Visible = true;
+            saveBtn.Visible = false;
+            _scene.Render(out _colors, _lightSourceColor);
 
             ColorImage();
         }
 
         private void ColorImage()
         {
-            throw new NotImplementedException();
+            int width = Image.Width;
+            int heigth = Image.Height;
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < heigth; j++)
+                {
+                    _bitmap.SetPixel(i, j, _colors[i * heigth + j]);
+                }
+            }
+
+            Image.Image = _bitmap;
+
+            progressBar.Value = 0;
+            progressBar.Visible = false;
+            saveBtn.Visible = true;
+        }
+
+        private void OnRayCast(object sender, EventArgs eventArgs)
+        {
+            var s = sender as Scene;
+            if (s == null)
+                return;
+            
+            if (s.Percent <= progressBar.Maximum)
+                progressBar.Value = s.Percent;
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            _bitmap.Save(string.Format("Output/{0}_{1}.jpeg", Constants.RaysCount, Guid.NewGuid()));
         }
     }
 }

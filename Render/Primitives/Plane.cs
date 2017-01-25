@@ -9,20 +9,48 @@ namespace Render.Primitives
 {
     public class Plane : IPrimitive
     {
-        public Vector3 LeftDown { get; set; }
-        public Vector3 RightTop { get; set; }
         public EPrimitiveType Type { get { return EPrimitiveType.Plane; } }
-        public Material Material { get; set; }
 
-        public Plane(Vector3 leftDown, Vector3 rightTop)
+        public Material Material
         {
-            if (leftDown == null || rightTop == null)
+            get { return TriangleA.Material; }
+            set
             {
-                throw new ArgumentException("leftDown or rightTop is null");
+                TriangleA.Material = value;
+                TriangleB.Material = value;
+            }
+        }
+
+        public Triangle TriangleA { get; set; }
+        public Triangle TriangleB { get; set; }
+
+        public bool FindIntersection(ref Ray ray)
+        {
+            return TriangleA.FindIntersection(ref ray) || TriangleB.FindIntersection(ref ray);
+        }
+
+        public Vector3 GetNormalAtPoint(Vector3 point)
+        {
+            return TriangleA.GetNormalAtPoint(point);
+        }
+
+        public Plane(Triangle triangleA, Triangle triangleB, Material material)
+        {
+            if (triangleA == null || triangleB == null)
+            {
+                throw new ArgumentException("triangleA or triangleB is null");
             }
 
-            LeftDown = leftDown;
-            RightTop = rightTop;
+            Material = material;
+
+            TriangleA = triangleA;
+            TriangleB = triangleB;
+        }
+
+        public Plane(Vector3 leftDown, Vector3 leftTop, Vector3 rightTop, Vector3 rightDown, Material material)
+        {
+            TriangleA = new Triangle(leftDown, leftTop, rightTop, material);
+            TriangleB = new Triangle(leftDown, rightTop, rightDown, material);
         }
     }
 }

@@ -45,15 +45,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Materials\DiffuseMaterial.cs" />
+    <Compile Include="Materials\FloorMaterial.cs" />
+    <Compile Include="Materials\MaterialType.cs" />
+    <Compile Include="Materials\MirrorMaterial.cs" />
+    <Compile Include="Materials\SpecularMaterial.cs" />
+    <Compile Include="Primitives\Ceiling.cs" />
+    <Compile Include="Primitives\Tetrahedron.cs" />
+    <Compile Include="Primitives\Triangle.cs" />
     <Compile Include="Ray.cs" />
     <Compile Include="Scene\Camera.cs" />
+    <Compile Include="Scene\DefaultBuilder.cs" />
     <Compile Include="Scene\LightPoint.cs" />
-    <Compile Include="Material.cs" />
+    <Compile Include="Materials\Material.cs" />
     <Compile Include="Primitives\EPrimitiveTypes.cs" />
     <Compile Include="Primitives\IPrimitive.cs" />
     <Compile Include="Primitives\Plane.cs" />
     <Compile Include="Primitives\Sphere.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene\LightSquare.cs" />
     <Compile Include="Scene\Scene.cs" />
   </ItemGroup>
   <ItemGroup>
